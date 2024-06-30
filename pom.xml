@@ -7,40 +7,82 @@
     <groupId>groupId</groupId>
     <artifactId>CucumberBasics</artifactId>
     <version>1.0-SNAPSHOT</version>
+    
     <properties>
-         <maven.compiler.source>1.6</maven.compiler.source>
-         <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
     </properties>
+    
     <dependencies>
-
-        <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-java -->
+        <!-- Cucumber dependencies -->
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>1.2.5</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-junit -->
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-junit</artifactId>
             <version>1.2.5</version>
+            <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/junit/junit -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-picocontainer -->
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-picocontainer</artifactId>
             <version>1.2.4</version>
+            <scope>test</scope>
         </dependency>
-
+        
+        <!-- JUnit dependency -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
-    
+    <build>
+        <plugins>
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            
+            <!-- Maven Surefire Plugin for running tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <include>**/Test*.java</include>
+                        <include>**/When*.java</include>
+                        <include>**/*Steps.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            
+            <!-- Maven JAR Plugin for creating executable JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.ea.Main</mainClass> <!-- Adjust with your main class -->
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
